@@ -689,3 +689,7 @@ input[type="time"] {
         bottom: 25px;
     }
 }
+/* Ajuste para a área segura do iPhone */
+.app {
+    padding-top: calc(env(safe-area-inset-top) + 20px);
+}
