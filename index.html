@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta name="theme-color" content="#252525">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DayOne">
+
+    <title>DayOne</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- =========================
+             INÍCIO
+        ========================== -->
+
+        <main id="homePage" class="page active">
+
+            <header class="top-header">
+
+    <div class="brand">
+
+        <img
+            src="imagens/logo.png"
+            alt="DayOne"
+            class="logo">
+
+        <div>
+            <span class="mini-label">
+                ONE DAY AT A TIME
+            </span>
+
+            <h1>DayOne</h1>
+        </div>
+
+    </div>
+
+    <span id="todayDate" class="date"></span>
+
+</header>
+
+
+            <!-- CONTADOR -->
+
+            <section class="counter">
+
+                <span class="counter-label">
+                    OFENSIVA ATUAL
+                </span>
+
+                <div class="counter-number">
+                    <strong id="currentStreak">0</strong>
+                    <span>dias</span>
+                </div>
+
+                <p id="motivation">
+                    Todo dia é uma nova chance.
+                </p>
+
+            </section>
+
+
+            <!-- HOJE -->
+
+            <section class="today">
+
+                <div class="section-heading">
+                    <span>HOJE</span>
+
+                    <h2>
+                        Cuide do seu dia.
+                    </h2>
+                </div>
+
+
+                <!-- ALIMENTAÇÃO -->
+
+                <article class="habit">
+
+                    <div class="habit-left">
+
+                        <div class="habit-icon">
+                            🥗
+                        </div>
+
+                        <div>
+                            <h3>Alimentação</h3>
+
+                            <p>
+                                Faça o seu melhor hoje.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        id="foodButton"
+                        class="check"
+                        onclick="toggleHabit('food')">
+
+                        ✓
+
+                    </button>
+
+                </article>
+
+
+                <!-- CARDIO -->
+
+                <article class="habit">
+
+                    <div class="habit-left">
+
+                        <div class="habit-icon">
+                            🏃
+                        </div>
+
+                        <div>
+                            <h3>Atividade de Cardio</h3>
+
+                            <p>
+                                Movimente o seu corpo.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        id="cardioButton"
+                        class="check"
+                        onclick="toggleHabit('cardio')">
+
+                        ✓
+
+                    </button>
+
+                </article>
+
+            </section>
+
+
+            <!-- REFLEXÃO -->
+
+            <section class="reflection">
+
+                <div class="reflection-title">
+
+                    <div>
+                        <span>REFLEXÃO</span>
+
+                        <h2>
+                            Como foi seu dia?
+                        </h2>
+                    </div>
+
+                    <small>
+                        opcional
+                    </small>
+
+                </div>
+
+
+                <textarea
+                    id="reflection"
+                    placeholder="Escreva algo sobre hoje..."
+                    oninput="saveReflection()">
+                </textarea>
+
+            </section>
+
+
+            <p class="home-message">
+                Você não precisa ser perfeito.
+                Só precisa cuidar de hoje.
+            </p>
+
+        </main>
+
+
+        <!-- =========================
+             MEU PROGRESSO
+        ========================== -->
+
+        <main id="progressPage" class="page">
+
+            <header class="page-header">
+
+                <span class="mini-label">
+                    SEU CAMINHO
+                </span>
+
+                <h1>
+                    Meu progresso
+                </h1>
+
+            </header>
+
+
+            <!-- ESTATÍSTICAS -->
+
+            <section class="progress-stats">
+
+                <div>
+                    <span>OFENSIVA</span>
+
+                    <strong id="progressStreak">
+                        0
+                    </strong>
+
+                    <small>dias</small>
+                </div>
+
+
+                <div>
+                    <span>MELHOR</span>
+
+                    <strong id="bestStreak">
+                        0
+                    </strong>
+
+                    <small>dias</small>
+                </div>
+
+
+                <div>
+                    <span>DIAS CUIDADOS</span>
+
+                    <strong id="totalDays">
+                        0
+                    </strong>
+
+                    <small>dias</small>
+                </div>
+
+            </section>
+
+
+            <!-- HISTÓRICO -->
+
+            <section class="history">
+
+                <div class="section-heading">
+
+                    <span>HISTÓRICO</span>
+
+                    <h2>
+                        Seus últimos dias
+                    </h2>
+
+                </div>
+
+
+                <div
+                    id="historyGrid"
+                    class="history-grid">
+                </div>
+
+
+                <div class="legend">
+
+                    <div>
+                        <i class="legend-food"></i>
+                        Alimentação
+                    </div>
+
+                    <div>
+                        <i class="legend-cardio"></i>
+                        Cardio
+                    </div>
+
+                    <div>
+                        <i class="legend-both"></i>
+                        Ambos
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- RESUMO -->
+
+            <section class="weekly">
+
+                <span>
+                    ESTA SEMANA
+                </span>
+
+                <h2>
+                    Pequenos passos.
+                </h2>
+
+                <p id="weeklySummary">
+                    Você está construindo consistência.
+                </p>
+
+            </section>
+
+        </main>
+
+
+        <!-- =========================
+             CONFIGURAÇÕES
+        ========================== -->
+
+        <main id="settingsPage" class="page">
+
+            <header class="page-header">
+
+                <span class="mini-label">
+                    PREFERÊNCIAS
+                </span>
+
+                <h1>
+                    Configurações
+                </h1>
+
+            </header>
+
+
+            <section class="settings-list">
+
+                <div class="setting-item">
+
+                    <div>
+
+                        <h3>
+                            ⏰ Lembrete diário
+                        </h3>
+
+                        <p>
+                            Escolha quando o DayOne
+                            deve lembrar você.
+                        </p>
+
+                    </div>
+
+
+                    <input
+                        type="time"
+                        id="reminderTime"
+                        onchange="saveReminder()">
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div>
+
+                        <h3>
+                            🌱 Filosofia DayOne
+                        </h3>
+
+                        <p>
+                            Um dia de cada vez.
+                            Sem punição e sem culpa.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <div class="settings-footer">
+
+                <strong>
+                    DayOne
+                </strong>
+
+                <p>
+                    One day at a time.
+                </p>
+
+            </div>
+
+        </main>
+
+
+        <!-- =========================
+             MENU INFERIOR
+        ========================== -->
+
+        <nav class="bottom-nav">
+
+            <button
+                class="nav-item active"
+                data-page="homePage"
+                onclick="changePage('homePage', this)">
+
+                <span>⌂</span>
+                <small>Início</small>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="progressPage"
+                onclick="changePage('progressPage', this)">
+
+                <span>◌</span>
+                <small>Meu progresso</small>
+
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="settingsPage"
+                onclick="changePage('settingsPage', this)">
+
+                <span>⚙</span>
+                <small>Configurações</small>
+
+            </button>
+
+        </nav>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+
+    <script>
+
+        if ("serviceWorker" in navigator) {
+
+            navigator.serviceWorker.register("./sw.js");
+
+        }
+
+    </script>
+
+</body>
+
+</html>
