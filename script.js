@@ -145,47 +145,37 @@ function calculateStreak() {
    MELHOR OFENSIVA
 ========================= */
 
-function calculateBestStreak() {
+function calculateStreak() {
     const data = getData();
 
-    const dates = Object.keys(data)
-        .filter(function (date) {
-            return isDayCompleted(data[date]);
-        })
-        .sort();
+    let streak = 0;
+    const date = new Date();
 
-    if (dates.length === 0) {
-        return 0;
+    // Verifica se hoje já foi concluído
+    const todayKey = formatDate(date);
+
+    if (isDayCompleted(data[todayKey])) {
+        streak++;
+        date.setDate(date.getDate() - 1);
+    } else {
+        // Se hoje ainda não foi concluído,
+        // a ofensiva continua contando a partir de ontem.
+        date.setDate(date.getDate() - 1);
     }
 
-    let best = 1;
-    let current = 1;
+    // Conta os dias anteriores consecutivos
+    while (true) {
+        const key = formatDate(date);
 
-    for (let i = 1; i < dates.length; i++) {
-        const previousDate =
-            new Date(dates[i - 1]);
-
-        const currentDate =
-            new Date(dates[i]);
-
-        const difference =
-            Math.round(
-                (currentDate - previousDate) /
-                (1000 * 60 * 60 * 24)
-            );
-
-        if (difference === 1) {
-            current++;
-        } else {
-            current = 1;
+        if (!isDayCompleted(data[key])) {
+            break;
         }
 
-        if (current > best) {
-            best = current;
-        }
+        streak++;
+        date.setDate(date.getDate() - 1);
     }
 
-    return best;
+    return streak;
 }
 
 /* =========================
