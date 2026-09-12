@@ -151,19 +151,16 @@ function calculateStreak() {
     let streak = 0;
     const date = new Date();
 
-    // Verifica se hoje já foi concluído
     const todayKey = formatDate(date);
 
+    // Se hoje já foi concluído, conta hoje.
     if (isDayCompleted(data[todayKey])) {
         streak++;
-        date.setDate(date.getDate() - 1);
-    } else {
-        // Se hoje ainda não foi concluído,
-        // a ofensiva continua contando a partir de ontem.
-        date.setDate(date.getDate() - 1);
     }
 
-    // Conta os dias anteriores consecutivos
+    // Começa a procurar os dias anteriores.
+    date.setDate(date.getDate() - 1);
+
     while (true) {
         const key = formatDate(date);
 
@@ -172,6 +169,7 @@ function calculateStreak() {
         }
 
         streak++;
+
         date.setDate(date.getDate() - 1);
     }
 
