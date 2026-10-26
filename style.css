@@ -761,22 +761,35 @@ input[type="time"] {
     }
 }
 
+
+/* Ajustes de rolagem e interação no iPhone */
 html {
     width: 100%;
     min-height: 100%;
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
 }
 
 body {
+    width: 100%;
     min-height: 100vh;
+    height: auto;
+    margin: 0;
     overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .app {
     width: 100%;
-    max-width: 680px;
     min-height: 100vh;
+    height: auto;
+    overflow: visible;
+    position: relative;
+    padding-bottom: 120px;
+}
 
-    margin: 0 auto;
-
-    padding-bottom: 110px;
+/* Evita que a abertura bloqueie os botões */
+#splashScreen {
+    pointer-events: none;
 }
