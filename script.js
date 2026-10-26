@@ -145,36 +145,39 @@ function calculateStreak() {
    MELHOR OFENSIVA
 ========================= */
 
-function calculateStreak() {
+
+/* =========================
+   MELHOR OFENSIVA
+========================= */
+
+function calculateBestStreak() {
     const data = getData();
 
     let streak = 0;
+    let bestStreak = 0;
     const date = new Date();
 
-    const todayKey = formatDate(date);
-
-    // Se hoje já foi concluído, conta hoje.
-    if (isDayCompleted(data[todayKey])) {
-        streak++;
-    }
-
-    // Começa a procurar os dias anteriores.
-    date.setDate(date.getDate() - 1);
-
-    while (true) {
+    // Analisa os dias anteriores para encontrar
+    // a maior sequência já registrada.
+    for (let i = 0; i < 36500; i++) {
         const key = formatDate(date);
 
-        if (!isDayCompleted(data[key])) {
-            break;
-        }
+        if (isDayCompleted(data[key])) {
+            streak++;
 
-        streak++;
+            if (streak > bestStreak) {
+                bestStreak = streak;
+            }
+        } else {
+            streak = 0;
+        }
 
         date.setDate(date.getDate() - 1);
     }
 
-    return streak;
+    return bestStreak;
 }
+
 
 /* =========================
    TOTAL DE DIAS
